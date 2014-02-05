@@ -1,0 +1,15 @@
+README.txt
+setup.cfg
+setup.py
+praticaweb/__init__.py
+praticaweb.interface.egg-info/PKG-INFO
+praticaweb.interface.egg-info/SOURCES.txt
+praticaweb.interface.egg-info/dependency_links.txt
+praticaweb.interface.egg-info/entry_points.txt
+praticaweb.interface.egg-info/namespace_packages.txt
+praticaweb.interface.egg-info/not-zip-safe
+praticaweb.interface.egg-info/paster_plugins.txt
+praticaweb.interface.egg-info/requires.txt
+praticaweb.interface.egg-info/top_level.txt
+praticaweb/interface/__init__.py
+praticaweb/interface/tests.py
