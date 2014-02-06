@@ -1,8 +1,4 @@
 
-    >>> from praticaweb.interface import conn
-    >>> conn.compileTemplateAsDict('Pratica')
-    {data: '', numero: '', dump: ''}
-
     >>> from praticaweb.interface import aggiungiPratica
     >>> from random import random
     >>> data = '10-10-2013'
@@ -161,7 +157,7 @@
     ... <ubicazioni_mappa></ubicazioni_mappa>
     ... <wf_iol></wf_iol>
     ... </info>"""
-    >>> result = aggiungiPratica(numero, data, dump, replace=1)
+    >>> result = aggiungiPratica(None, numero, data, dump, replace=1)
     >>> result['success']
     1
 

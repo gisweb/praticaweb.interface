@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
-try:
-    from urllib.parse import urljoin
-except ImportError:
-    urljoin = lambda *parts: '/'.join(parts)
+
+urljoin = lambda *parts: '/'.join(parts)
 
 from datetime import datetime
 from lxml import etree
