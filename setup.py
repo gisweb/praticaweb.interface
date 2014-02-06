@@ -26,6 +26,9 @@ setup(name='praticaweb.interface',
       install_requires=[
           'setuptools',
           # -*- Extra requirements: -*-
+          'suds',
+          'lxml',
+          'urllib.urlparse'
       ],
       entry_points="""
       # -*- Entry points: -*-

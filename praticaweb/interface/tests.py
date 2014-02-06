@@ -1,7 +1,7 @@
 import unittest
 
-#from zope.testing import doctestunit
-#from zope.component import testing
+from zope.testing import doctestunit
+from zope.component import testing
 from Testing import ZopeTestCase as ztc
 
 from Products.Five import fiveconfigure
@@ -31,9 +31,9 @@ def test_suite():
     return unittest.TestSuite([
 
         # Unit tests
-        #doctestunit.DocFileSuite(
-        #    'README.txt', package='praticaweb.interface',
-        #    setUp=testing.setUp, tearDown=testing.tearDown),
+        doctestunit.DocFileSuite(
+           'README.txt', package='praticaweb.interface',
+           setUp=testing.setUp, tearDown=testing.tearDown),
 
         #doctestunit.DocTestSuite(
         #    module='praticaweb.interface.mymodule',

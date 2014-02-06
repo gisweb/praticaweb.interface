@@ -13,3 +13,6 @@ praticaweb.interface.egg-info/requires.txt
 praticaweb.interface.egg-info/top_level.txt
 praticaweb/interface/__init__.py
 praticaweb/interface/tests.py
+praticaweb/interface/praticaweb/XmlDict.py
+praticaweb/interface/praticaweb/__init__.py
+praticaweb/interface/praticaweb/interface.py
