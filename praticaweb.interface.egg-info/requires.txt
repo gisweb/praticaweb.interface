@@ -1,3 +1,4 @@
 setuptools
 suds
 lxml
+configobj

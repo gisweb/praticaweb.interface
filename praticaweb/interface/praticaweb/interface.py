@@ -3,6 +3,10 @@
 
 urljoin = lambda *parts: '/'.join(parts)
 
+from urlparse import urlunparse
+
+import os.path
+
 from datetime import datetime
 from lxml import etree
 from XmlDict import XmlDictConfig
@@ -10,6 +14,8 @@ from XmlDict import XmlDictConfig
 from suds.client import Client
 
 ####                                                             #### UTILS ####
+
+
 
 def deep_normalize(d):
     """ Normalize content of object returned from functions and methods """
@@ -36,7 +42,9 @@ def deep_normalize(d):
 class SudsBase(object):
     """ Base class for interfacing to Suds web services """
 
-    HOST = 'http://iol.praticaweb.it'
+    SCHEME = 'http'
+    HOST = 'iol.praticaweb.it'
+    PORT = ''
     SPATH = 'webservices'
     timeout = 180
     testinfo = False
@@ -44,9 +52,16 @@ class SudsBase(object):
     def __init__(self, service, **kw):
         for k,v in kw.items():
             setattr(self, k, v)
-        self.url = urljoin(self.HOST, self.SPATH, service)
-        if self.testinfo:
-            self.url += '&x=1'
+        self.url = urlunparse((
+            self.SCHEME,
+            ':'.join([loc for loc in (self.HOST, self.PORT, ) if loc]),
+            os.path.join(self.SPATH, service),
+            '',
+            # trick for by-passing cache during development
+            '' if not self.testinfo else 'x=1',
+            '',
+        ))
+
         self.client = Client(self.url, location=self.url, timeout=self.timeout)
         self.client.set_options(cache=None)
 

@@ -17,4 +17,5 @@
       />
   <!-- -*- extra stuff goes here -*- -->
   <cmf:registerDirectory name="praticaweb_interface_scripts"/>
+  <cmf:registerDirectory name="praticaweb_interface_templates"/>
 </configure>
