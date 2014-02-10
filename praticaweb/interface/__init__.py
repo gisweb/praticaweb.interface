@@ -1,11 +1,10 @@
 # -*- extra stuff goes here -*-
 
-from AccessControl import allow_module
-
 def initialize(context):
     """Initializer called when used as a Zope 2 product."""
 
-allow_module('gisweb.utils')
+from AccessControl import allow_module
+allow_module('praticaweb.interface')
 
 from praticaweb.interface import WSIol
 
@@ -26,7 +25,19 @@ def loadPortalSettings(self, tag='Praticaweb'):
     else:
         return dict()
 
+#### TODO: se posso avere l'oggetto portale e ricavare i settaggi in portal_properties
+# posso definire una volta per tutte un oggetto client da usare in tutte le funzioni
+# i.e.:
+# client = WSIol(**loadPortalSettings(PORTAL))
+
 def aggiungiPratica(self, numero, data, dump, replace=0):
+    """ Interroga il metodo aggiungiPratica del servizio """
     pwps = loadPortalSettings(self)
     conn = WSIol(**pwps)
     return conn.aggiungiPratica(numero, data, dump, replace)
+
+def chiama(self, metodo, *args, **kw):
+    """ Metodo generico per chiamare un metodo del servizio """
+    pwps = loadPortalSettings(self)
+    conn = WSIol(**pwps)
+    return conn.call(metodo, *args, **kw)

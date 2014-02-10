@@ -91,16 +91,14 @@ class SudsBase(object):
             obj[k] = kw.get(k) or ''
         return obj
 
-    def query_service(self, methodname, request):
+    def call(self, methodname, *args, **kw):
         """ Standardize the output """
         service = getattr(self.client.service, methodname)
         out = dict(success=0, service=methodname)
         if self.testinfo: t0 = datetime.now()
+
         try:
-            if isinstance(request, dict):
-                res = service(**request)
-            else:
-                res = service(request)
+            res = service(*args, **kw)
         except Exception as err:
             out['message'] = '%s' % err
             # for debug purposes in case of exception reasons are in input data
@@ -121,6 +119,7 @@ class SudsBase(object):
 
         return out
 
+
 class WSIol(SudsBase):
 
     def __init__(self, **kw):
@@ -135,11 +134,4 @@ class WSIol(SudsBase):
         replace: flag (opzionale) se settato a 1 forza la sostituzione di una Pratica esistente
         """
 
-        arguments = dict(
-            numero = numero,
-            data = data,
-            dump = dump
-        )
-        #request = self.compileTemplate('Pratica', **arguments)
-
-        return self.query_service('aggiungiPratica', arguments)
+        return self.call('aggiungiPratica', numero=numero, data=data, dump=dump)

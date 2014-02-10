@@ -28,7 +28,6 @@ setup(name='praticaweb.interface',
           # -*- Extra requirements: -*-
           'suds',
           'lxml',
-          #'urllib.urlparse'
       ],
       entry_points="""
       # -*- Entry points: -*-

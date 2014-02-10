@@ -14,5 +14,4 @@ numero = context.getItem('numero_pratica')
 data = context.getItem('data_pratica').strftime('%d-%m-%Y')
 dump = context.serialDoc(format='xml')
 
-
 return aggiungiPratica(numero, data, dump, replace=replace)
