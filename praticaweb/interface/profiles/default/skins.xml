@@ -4,7 +4,7 @@
   <object name="praticaweb_interface_scripts"
       meta_type="Filesystem Directory View"
       directory="praticaweb.interface:skins/praticaweb_interface_scripts"/>
-  <skin-path name="praticaweb.interface" based-on="Sunburst Theme">
+  <skin-path name="*">
     <layer name="praticaweb_interface_scripts"
         insert-after="custom"/>
   </skin-path>
