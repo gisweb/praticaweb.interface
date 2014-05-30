@@ -2,4 +2,3 @@ setuptools
 suds
 lxml
 configobj
-urlparse

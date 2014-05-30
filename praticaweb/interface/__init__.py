@@ -6,13 +6,12 @@ def initialize(context):
 from AccessControl import allow_module
 allow_module('praticaweb.interface')
 
-from configobj import ConfigObj
-import os
+import os, json
 from DateTime import DateTime
 from Globals import package_home
 product_path = package_home(globals())
 
-from praticaweb.interface import WSIol
+from praticaweb.interface import Praticaweb
 
 #def loadPortalSettings(self, tag='Praticaweb'):
     #"""
@@ -31,51 +30,25 @@ from praticaweb.interface import WSIol
     #else:
         #return dict()
 
-conf = ConfigObj(os.path.join(product_path, 'praticaweb.cfg'), create_empty=True)
-try:
-    conn = WSIol(**conf)
-except:
-    conn = None
+cfg = json.load(open(os.path.join(product_path, 'praticaweb.json')))
 
-def aggiungiPratica(numero, data, dump, replace=0):
-    """ Interroga il metodo aggiungiPratica del servizio """
-    return conn.aggiungiPratica(numero, data, dump, replace)
+def elencoTipologiePratica():
+    conn = Praticaweb(**cfg)
+    out = conn.elencoTipologiePratica()
+    return out
 
-def chiama(metodo, *args, **kw):
-    """ Metodo generico per chiamare un metodo del servizio """
-    return conn.call(metodo, *args, **kw)
+def elencoTipologieIntervento():
+    conn = Praticaweb(**cfg)
+    out = conn.elencoTipologieIntervento()
+    return out
 
-def procedimentoPratica(docid):
-    """
-    Shortcut per ricavare le informazioni del procedimento direttamente a partire
-    da una pratica.
-    """
+def testSoggetto():
+    conn = Praticaweb(**cfg)
+    return conn._tipopratica()
+    from praticaweb.test import Soggetto
+    return Soggetto()
 
-    # 1. si ricava la lista dei procedimenti in capo al mittente attraverso il CF
-    try:
-        res_procedimenti = chiama('procedimentoPratica', docid=docid)
-    except Exception as err:
-        errmsg = str(err)
-        errtype = type(err)
-        res_procedimenti = dict(success=0, message='%s: %s' % (errtype, errmsg))
-        res_procedimenti['result'] = dict(
-            IdIter = 0,
-            Descrizione = 'DEMO',
-            Responsabile = 'Nome Responsabile',
-            DataInizio = DateTime()-15,
-            DataFine = DateTime()+15,
-            StatoProcedimento = 'STATO'
-        )
+from praticaweb.test import AggiungiPratica
 
-    if res_procedimenti['success']:
-        if not res_procedimenti['result'].get('Errore'):
-            # 2. si filtra i procedimenti trovati in base al parametro IdDocumento
-            flt_res = [rec['TestataProcedimento'] \
-                for rec in res_procedimenti['result']['Procedimenti']['Procedimento'] \
-                    if rec['EstremiDocumento']['IdDocumento']==docid] or [{}]
-            res_procedimenti['result'] = flt_res[0]
-            return res_procedimenti
-        else:
-            return res_procedimenti
-    else:
-        return res_procedimenti
+def testAggiungiPratica():
+    return AggiungiPratica()

@@ -1,0 +1,6 @@
+{
+    "testinfo": true,
+    "HOST": "195.88.6.158",
+    "SPATH": "wsPraticaweb",
+    "SERVICE": "wsTest.php?wsdl"
+}
