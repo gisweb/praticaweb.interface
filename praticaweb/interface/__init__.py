@@ -11,7 +11,7 @@ from DateTime import DateTime
 from Globals import package_home
 product_path = package_home(globals())
 
-from praticaweb.interface import Praticaweb
+from praticaweb.interface import pwClient
 
 #def loadPortalSettings(self, tag='Praticaweb'):
     #"""
@@ -31,15 +31,25 @@ from praticaweb.interface import Praticaweb
         #return dict()
 
 cfg = json.load(open(os.path.join(product_path, 'praticaweb.json')))
+url = cfg['wsURL']
 
-def elencoTipologiePratica():
+def elencoTipiPratica():
+    pw = pwClient()
+    return  pw.elencoTipiPratica()
+    
+
+def elencoTipiIntervento():
+    pw = pwClient()
+    return  pw.elencoTipiIntervento()
+
+def elencoSezioni(validation):
     conn = Praticaweb(**cfg)
-    out = conn.elencoTipologiePratica()
+    out = conn.elencoSezioni(validation)
     return out
 
-def elencoTipologieIntervento():
+def elencoFogli(validation,sezione):
     conn = Praticaweb(**cfg)
-    out = conn.elencoTipologieIntervento()
+    out = conn.elencoFogli(validation,sezione)
     return out
 
 def testSoggetto():
